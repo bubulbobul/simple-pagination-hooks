@@ -8,7 +8,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPages, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,11 +21,17 @@ function App() {
     fetchPosts();
   }, []);
 
-  console.log(posts)
+  // console.log(posts)
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <div className="container mt-5">
       <h1 className="text-primary mb-3">Simple Pagination with react hooks</h1>
-      <Posts posts={posts} loading={loading} />
+      <Posts posts={currentPosts} loading={loading} />
     </div>
   );
 }
